@@ -1,0 +1,41 @@
+body{background-color: rgb(207, 254, 254); display: flex; align-items: center; flex-direction: column; width: 99%;}
+#map { height: 70vh; width: 70vw;}
+.opera-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    align-items: center;
+}
+#p {
+    font-size:  1.875rem;
+    font-weight: bold;
+    margin: 3vh 1vw 3vh 1vw;
+    color: rgb(66, 17, 66);
+}
+
+.leaflet-marker-icon {
+    filter: hue-rotate(130deg) brightness(1.5);
+}
+
+.leaflet-popup-content-wrapper {
+    max-width: 60vw;
+    border-radius: 0.5rem;
+    padding: 0; 
+}
+
+
+.leaflet-popup-content {
+    margin: 0.6rem !important;
+    width: auto !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 50vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+img{
+    height : 22vw;
+    width: auto;
+}
