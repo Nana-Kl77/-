@@ -322,7 +322,7 @@ map.on('popupopen', function (e) {
                 loaded++;
                 if (loaded === images.length) {
                     popup.update();
-                    map.panTo(popup.getLatLng());
+                    // map.panTo(popup.getLatLng());
                 }
             };
         }
