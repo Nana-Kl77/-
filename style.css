@@ -24,7 +24,7 @@ body{background-color: rgb(207, 254, 254); display: flex; align-items: center; f
 }
 
 .leaflet-popup {
-    margin-bottom: 20px;
+    bottom: 20px !important;
 }
 
 .leaflet-popup-content {
