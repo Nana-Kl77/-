@@ -309,5 +309,5 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
 map.on('popupopen', function(e) {
     setTimeout(function() {
         e.popup.update();
-    }, 10);
+    }, 300);
 });
