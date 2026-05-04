@@ -300,22 +300,14 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
         </div>`)
 
 
-// map.whenReady(function() {
-//     setTimeout(function() {
-//         map.invalidateSize();
-//     }, 100);
-// });
+    map.whenReady(function() {
+    setTimeout(function() {
+        map.invalidateSize();
+    }, 100);
+});
 
-// map.on('popupopen', function(e) {
-//     setTimeout(function() {
-//         e.popup.update();
-//         var images = e.popup.getElement().querySelectorAll('img');
-//         images.forEach(function(img) {
-//             if (!img.complete) {
-//                 img.addEventListener('load', function() {
-//                     e.popup.update();
-//                 });
-//             }
-//         });
-//     }, 50);
-// });
+map.on('popupopen', function(e) {
+    setTimeout(function() {
+        e.popup.update();
+    }, 10);
+});
