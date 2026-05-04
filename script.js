@@ -4,14 +4,6 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-L.Marker.prototype.options.icon = L.icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [0, -41]
-});
-
 L.marker([-33.85663284146483, 151.2152644897121]).addTo(map)
 .bindPopup(`<div class="opera-popup">
     <img src="images/sydney.webp">
@@ -307,9 +299,15 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
 <br><br>დღეს თბილისის ოპერისა და ბალეტის თეატრი არა მხოლოდ ისტორიული მემკვიდრეობის ნაწილია, არამედ აქტიურად მოქმედი კულტურული სივრცე, სადაც თანამედროვე და კლასიკური ხელოვნება ერთიანდება.</span> 
         </div>`)
 
+
+    map.whenReady(function() {
+    setTimeout(function() {
+        map.invalidateSize();
+    }, 100);
+});
+
 map.on('popupopen', function(e) {
-    map.panTo(e.popup.getLatLng());
     setTimeout(function() {
         e.popup.update();
-    }, 300);
+    }, 10);
 });
