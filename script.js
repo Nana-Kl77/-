@@ -331,6 +331,6 @@ map.on('popupopen', function (e) {
     // If all images already loaded
     if (loaded === images.length) {
         popup.update();
-        // map.panTo(popup.getLatLng());
+        map.panTo(popup.getLatLng());
     }
 });
