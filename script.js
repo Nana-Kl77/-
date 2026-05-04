@@ -306,8 +306,30 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
     }, 100);
 });
 
-map.on('popupopen', function(e) {
-    setTimeout(function() {
-        e.popup.update();
-    }, 10);
+map.on('popupopen', function (e) {
+    const popup = e.popup;
+    const node = popup.getElement();
+
+    const images = node.querySelectorAll('img');
+    let loaded = 0;
+
+    images.forEach(img => {
+        if (img.complete) {
+            loaded++;
+        } else {
+            img.onload = () => {
+                loaded++;
+                if (loaded === images.length) {
+                    popup.update();
+                    map.panTo(popup.getLatLng());
+                }
+            };
+        }
+    });
+
+    // If all images already loaded
+    if (loaded === images.length) {
+        popup.update();
+        map.panTo(popup.getLatLng());
+    }
 });
