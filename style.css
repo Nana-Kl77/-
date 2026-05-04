@@ -19,6 +19,7 @@ body{background-color: rgb(207, 254, 254); display: flex; align-items: center; f
 
 .leaflet-popup-content-wrapper {
     max-width: 60vw;
+    width: 30vw !important;
     border-radius: 0.5rem;
     padding: 0; 
 }
