@@ -5,8 +5,8 @@ L.Marker.prototype.options.icon = L.icon({
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 
     iconSize: [25, 41],
-    iconAnchor: [12, 70],   // 👈 lower marker
-    popupAnchor: [0, -45]   // 👈 keep popup above nicely
+    iconAnchor: [12, 70],
+    popupAnchor: [0, -45]
 });
 
 
@@ -322,30 +322,44 @@ map.on('popupopen', function (e) {
 
     const images = el.querySelectorAll('img');
 
-    if (images.length === 0) {
+    let loaded = 0;
+    const total = images.length;
+
+    function updatePopup() {
+        // force Leaflet to recalc popup size/position
         popup.update();
+
+        // shift popup UP so marker appears lower
+        const offset = L.point(0, -120); // adjust this value
+        popup.options.offset = offset;
+
+        // force reposition instantly (this is the key fix)
+        popup._updatePosition();
+
         map.panTo(popup.getLatLng());
-        return;
     }
 
-    let loaded = 0;
+    if (total === 0) {
+        updatePopup();
+        return;
+    }
 
     images.forEach(img => {
         if (img.complete) {
             loaded++;
         } else {
             img.onload = check;
-            img.onerror = check; // important for broken images
+            img.onerror = check;
         }
     });
 
     function check() {
         loaded++;
-        if (loaded === images.length) {
-            setTimeout(() => {
-                popup.update();
-                map.panTo(popup.getLatLng());
-            }, 100);
+        if (loaded === total) {
+            setTimeout(updatePopup, 50);
         }
     }
+
+    // 👇 THIS makes it work on FIRST click
+    setTimeout(updatePopup, 0);
 });
