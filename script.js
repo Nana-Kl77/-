@@ -300,7 +300,7 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
         </div>`)
 
 
-    map.whenReady(function() {
+map.whenReady(function() {
     setTimeout(function() {
         map.invalidateSize();
     }, 100);
@@ -309,22 +309,13 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
 map.on('popupopen', function(e) {
     setTimeout(function() {
         e.popup.update();
-    }, 10);
-});
-
-map.on('popupopen', function(e) {
-    var images = e.popup.getElement().querySelectorAll('img');
-    var loaded = 0;
-    if (images.length === 0) { e.popup.update(); return; }
-    images.forEach(function(img) {
-        if (img.complete) {
-            loaded++;
-            if (loaded === images.length) e.popup.update();
-        } else {
-            img.addEventListener('load', function() {
-                loaded++;
-                if (loaded === images.length) e.popup.update();
-            });
-        }
-    });
+        var images = e.popup.getElement().querySelectorAll('img');
+        images.forEach(function(img) {
+            if (!img.complete) {
+                img.addEventListener('load', function() {
+                    e.popup.update();
+                });
+            }
+        });
+    }, 50);
 });
