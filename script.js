@@ -299,10 +299,9 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
 <br><br>დღეს თბილისის ოპერისა და ბალეტის თეატრი არა მხოლოდ ისტორიული მემკვიდრეობის ნაწილია, არამედ აქტიურად მოქმედი კულტურული სივრცე, სადაც თანამედროვე და კლასიკური ხელოვნება ერთიანდება.</span> 
         </div>`)
 
-
- map.on('popupopen', function(e) {
-    map.setView(e.popup.getLatLng(), map.getZoom(), {animate: false});
+map.on('popupopen', function(e) {
+    map.panTo(e.popup.getLatLng());
     setTimeout(function() {
         e.popup.update();
-    }, 100);
+    }, 300);
 });
