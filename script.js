@@ -311,3 +311,20 @@ map.on('popupopen', function(e) {
         e.popup.update();
     }, 10);
 });
+
+map.on('popupopen', function(e) {
+    var images = e.popup.getElement().querySelectorAll('img');
+    var loaded = 0;
+    if (images.length === 0) { e.popup.update(); return; }
+    images.forEach(function(img) {
+        if (img.complete) {
+            loaded++;
+            if (loaded === images.length) e.popup.update();
+        } else {
+            img.addEventListener('load', function() {
+                loaded++;
+                if (loaded === images.length) e.popup.update();
+            });
+        }
+    });
+});
