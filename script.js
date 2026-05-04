@@ -1,15 +1,5 @@
 var map = L.map('map').setView([41.70100428001451, 44.79601098487503], 7);
 
-L.Marker.prototype.options.icon = L.icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-
-    iconSize: [25, 41],
-    iconAnchor: [12, 70],
-    popupAnchor: [0, -45]
-});
-
-
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
@@ -322,44 +312,30 @@ map.on('popupopen', function (e) {
 
     const images = el.querySelectorAll('img');
 
-    let loaded = 0;
-    const total = images.length;
-
-    function updatePopup() {
-        // force Leaflet to recalc popup size/position
+    if (images.length === 0) {
         popup.update();
-
-        // shift popup UP so marker appears lower
-        const offset = L.point(0, -120); // adjust this value
-        popup.options.offset = offset;
-
-        // force reposition instantly (this is the key fix)
-        popup._updatePosition();
-
         map.panTo(popup.getLatLng());
-    }
-
-    if (total === 0) {
-        updatePopup();
         return;
     }
+
+    let loaded = 0;
 
     images.forEach(img => {
         if (img.complete) {
             loaded++;
         } else {
             img.onload = check;
-            img.onerror = check;
+            img.onerror = check; // important for broken images
         }
     });
 
     function check() {
         loaded++;
-        if (loaded === total) {
-            setTimeout(updatePopup, 50);
+        if (loaded === images.length) {
+            setTimeout(() => {
+                popup.update();
+                map.panTo(popup.getLatLng());
+            }, 100);
         }
     }
-
-    // 👇 THIS makes it work on FIRST click
-    setTimeout(updatePopup, 0);
 });
