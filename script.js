@@ -5,7 +5,7 @@ L.Marker.prototype.options.icon = L.icon({
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 
     iconSize: [25, 41],
-    iconAnchor: [12, 50],   // 👈 lower marker
+    iconAnchor: [12, 70],   // 👈 lower marker
     popupAnchor: [0, -45]   // 👈 keep popup above nicely
 });
 
