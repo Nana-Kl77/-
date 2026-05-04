@@ -308,28 +308,34 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
 
 map.on('popupopen', function (e) {
     const popup = e.popup;
-    const node = popup.getElement();
+    const el = popup.getElement();
 
-    const images = node.querySelectorAll('img');
+    const images = el.querySelectorAll('img');
+
+    if (images.length === 0) {
+        popup.update();
+        map.panTo(popup.getLatLng());
+        return;
+    }
+
     let loaded = 0;
 
     images.forEach(img => {
         if (img.complete) {
             loaded++;
         } else {
-            img.onload = () => {
-                loaded++;
-                if (loaded === images.length) {
-                    popup.update();
-                    map.panTo(popup.getLatLng());
-                }
-            };
+            img.onload = check;
+            img.onerror = check; // important for broken images
         }
     });
 
-    // If all images already loaded
-    if (loaded === images.length) {
-        popup.update();
-        map.panTo(popup.getLatLng());
+    function check() {
+        loaded++;
+        if (loaded === images.length) {
+            setTimeout(() => {
+                popup.update();
+                map.panTo(popup.getLatLng());
+            }, 100);
+        }
     }
 });
