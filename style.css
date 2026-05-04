@@ -13,9 +13,9 @@ body{background-color: rgb(207, 254, 254); display: flex; align-items: center; f
     color: rgb(66, 17, 66);
 }
 
-.leaflet-marker-icon {
+/* .leaflet-marker-icon {
     filter: hue-rotate(130deg) brightness(1.5);
-}
+} */
 
 .leaflet-popup-content-wrapper {
     max-width: 60vw;
