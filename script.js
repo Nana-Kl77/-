@@ -300,14 +300,9 @@ L.marker([41.70100428001451, 44.79601098487503]).addTo(map)
         </div>`)
 
 
-    map.whenReady(function() {
-    setTimeout(function() {
-        map.invalidateSize();
-    }, 1000);
-});
-
-map.on('popupopen', function(e) {
+ map.on('popupopen', function(e) {
+    map.setView(e.popup.getLatLng(), map.getZoom(), {animate: false});
     setTimeout(function() {
         e.popup.update();
-    }, 1000);
+    }, 100);
 });
